@@ -1,0 +1,8 @@
+﻿CREATE TABLE [dbo].[Permisos]
+(
+	 PermisoId INT NOT NULL IDENTITY(1,1) CONSTRAINT PK_Permisos PRIMARY KEY CLUSTERED(PermisoId)
+   , RolesId INT NULL CONSTRAINT FK_Permisos_Roles FOREIGN KEY(RolesId) REFERENCES dbo.Roles(RolesId)
+   , Permiso VARCHAR (250)
+   , Estado BIT
+)WITH (DATA_COMPRESSION = PAGE)
+GO

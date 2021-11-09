@@ -1,0 +1,86 @@
+﻿@page
+@model WebApp.Pages.Factura.GridModel
+@{ }
+<br />
+<div class="container-fluid">
+    <div class="card">
+        <div class="card-header">
+
+            BILLING
+
+
+        </div>
+        <div class="card-body">
+
+            <a class="btn btn-outline-primary" asp-page="FacturasEdit">
+                <i class='bx bxs-comment-add'></i>
+            </a>
+
+            <div class="row">
+
+                <div class="col-12"></div>
+                <table id="GridView" class="table table-bordered table-striped table-over">
+                    <thead>
+                        <tr>
+                            <th>Id Fact</th>
+                            <th>Date Order</th>
+                            <th>Client Name</th>
+                            <th>Order</th>
+                            <th>Type Of Service</th>
+                            <th>Amount</th>
+                            <th>Tax</th>
+                            <th>SubTotal</th>
+                            <th>Total</th>
+                            <th>Observations</th>
+                            <th>Status</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var item in Model.GridList)
+                        {
+            <tr>
+                <td>@item.IdFactura</td>
+                <td>@item.FechaPedido.ToString("dd/MM/yyyy")</td>
+                <td>@item.Cliente.NombreCompleto</td>
+                <td>@item.Pedido</td>
+                <td>@item.TipoServicio</td>
+                <td>@item.Monto</td>
+                <td>@item.Impuesto</td>
+                <td>@((item.Impuesto/100)* item.Monto)</td>
+                <td>@item.Total</td>
+                <td>@item.Observaciones</td>
+                <td>@(item.Estado ?"Activo" :"Inactivo")</td>
+                <td>
+                    <a class="btn btn-outline-primary" asp-page="FacturasEdit" asp-route-id="@item.IdFactura">
+                        <i class='bx bx-edit-alt'></i>
+                    </a>
+                    <button type="button" class="btn btn-outline-danger"
+                            onclick="FacturasGrid.OnClickEliminar(@item.IdFactura)">
+                        <i class='bx bx-trash'></i>
+                    </button>
+
+                    <button type="button" class="btn btn-outline-danger"
+                            onclick="FacturasGrid.OnClickEliminar(@item.IdFactura)">
+                        <i class='bx bx-download'></i>
+                    </button>
+
+                </td>
+            </tr>
+}
+                    </tbody>
+
+                </table>
+
+            </div>
+
+
+        </div>
+    </div>
+</div>
+
+
+@section Scripts{
+
+    <script defer src="~/App/Factura/FacturasGrid.js"></script>
+
+}

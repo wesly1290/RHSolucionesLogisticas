@@ -1,0 +1,74 @@
+﻿@page
+@model WebApp.Pages.Usuario.UsuariosGridModel
+@{
+}
+
+<br />
+<div class="container-fluid">
+    <div class="card">
+        <div class="card-header">
+
+            USERS
+
+
+        </div>
+        <div class="card-body">
+
+            <a class="btn btn-outline-primary" asp-page="Registrarse">
+                <i class='bx bxs-comment-add'></i>
+            </a>
+
+            <div class="row">
+
+                <div class="col-12"></div>
+                <table id="GridView" class="table table-bordered table-striped table-over">
+                    <thead>
+                        <tr>
+                            <th>Id User</th>
+                            <th>User</th>
+                            <th>Name</th>
+                            <th>Role</th>
+                            <th>Password</th>
+                            <th>Status</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var item in Model.GridList)
+                        {
+                        <tr>
+                            <td>@item.UsuariosId</td>
+                            <td>@item.Usuario</td>
+                            <td>@item.Nombre</td>
+                            <td>@item.Rol.NombreRol</td>
+                            <td>@item.Contrasena</td>
+                            <td>@(item.Estado ?"Activo" :"Inactivo")</td>
+                            <td>
+                                <a class="btn btn-outline-primary" asp-page="Registrarse" asp-route-id="@item.UsuariosId">
+                                    <i class='bx bx-edit-alt'></i>
+                                </a>
+                                <button type="button" class="btn btn-outline-danger"
+                                        onclick="UsuariosGrid.OnClickEliminar(@item.UsuariosId)">
+                                    <i class='bx bx-trash'></i>
+                                </button>
+
+                            </td>
+                        </tr>
+                        }
+                    </tbody>
+
+                </table>
+
+            </div>
+
+
+        </div>
+    </div>
+</div>
+
+@section Scripts{
+
+
+
+    <script src="~/App/Registrarse.js"></script>
+
+}

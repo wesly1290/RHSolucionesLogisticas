@@ -1,0 +1,10 @@
+﻿CREATE TABLE dbo.Clientes
+(
+	   ClientesId INT NOT NULL IDENTITY(1,1) CONSTRAINT PK_Clientes PRIMARY KEY CLUSTERED(ClientesId)
+	 , NombreCompleto VARCHAR(250) NULL
+	 , Direccion VARCHAR(500) NULL
+	 , Telefono VARCHAR(500) NULL
+	 , Estado BIT
+)
+WITH (DATA_COMPRESSION = PAGE)
+GO
