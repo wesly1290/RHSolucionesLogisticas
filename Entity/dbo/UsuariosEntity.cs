@@ -15,6 +15,7 @@ namespace Entity
         public int? UsuariosId { get; set; }
         public string Usuario { get; set; }
         public string Nombre { get; set; }
+        public string NombreRol { get; set; }
         public string Contrasena { get; set; }
         public int? RolesId { get; set; }
         public virtual RolesEntity Rol{ get; set; }

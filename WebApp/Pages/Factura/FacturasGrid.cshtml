@@ -33,6 +33,7 @@
                             <th>Total</th>
                             <th>Observations</th>
                             <th>Status</th>
+                            <th>Action</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -59,10 +60,10 @@
                         <i class='bx bx-trash'></i>
                     </button>
 
-                    <button type="button" class="btn btn-outline-danger"
-                            onclick="FacturasGrid.OnClickEliminar(@item.IdFactura)">
+                    <a type="button" class="btn btn-outline-info"
+                             asp-page="FacturaImprimir" asp-route-id="@item.IdFactura" target="_blank">
                         <i class='bx bx-download'></i>
-                    </button>
+                    </a>
 
                 </td>
             </tr>

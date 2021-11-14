@@ -6,6 +6,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using WBL;
+using WebApp;
 
 namespace WebApiRest.Controllers
 {
@@ -28,7 +29,8 @@ namespace WebApiRest.Controllers
         {
             try
             {
-                return await facturaService.Get();
+                IEnumerable<FacturasEntity> facturasEntity =  await facturaService.Get();
+                return facturasEntity;
             }
             catch (Exception ex)
             {
@@ -42,7 +44,8 @@ namespace WebApiRest.Controllers
         {
             try
             {
-                return await facturaService.GetById(new FacturasEntity { IdFactura = id });
+                FacturasEntity facturasEntity = await facturaService.GetById(new FacturasEntity { IdFactura = id });
+                return facturasEntity;
             }
             catch (Exception ex)
             {

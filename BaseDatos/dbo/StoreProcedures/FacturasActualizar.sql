@@ -3,7 +3,6 @@
 	@ClientesId INT,
 	@Pedido VARCHAR (1000) , 
 	@TipoServicio VARCHAR (250), 
-	@VehiculoId INT,
 	@FechaPedido DATETIME ,
     @Monto DECIMAL(18,2),
 	@Impuesto DECIMAL(18,2),

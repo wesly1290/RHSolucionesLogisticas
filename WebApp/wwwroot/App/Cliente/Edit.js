@@ -19,11 +19,23 @@ var ClienteEdit;
             },
             Save: function () {
                 if (BValidateData(this.Formulario)) {
-                    Loading.fire("Guardando");
+                    Loading.fire("Saving...");
                     this.ClienteServicio(this.Entity).then(function (data) {
                         Loading.close();
                         if (data.CodeError == 0) {
-                            Toast.fire({ title: "Se guardo sastifactoriamente!", icon: "success" })
+                            var movimiento = "";
+                            if (Entity.ClientesId != null) {
+                                movimiento = "The customer " + Entity.ClientesId + " has been updated";
+                            }
+                            else {
+                                movimiento = "A new customer has been created";
+                            }
+                            var tableInstance = {
+                                UsuariosId: parseInt(SessionID),
+                                DescripcionMovimiento: movimiento
+                            };
+                            App.AxiosProvider.RegistrarBitacoraMov(tableInstance);
+                            Toast.fire({ title: "Successfully saved!", icon: "success" })
                                 .then(function () { return window.location.href = "Cliente/Grid"; });
                         }
                         else {
@@ -32,7 +44,7 @@ var ClienteEdit;
                     }).catch(function (c) { return console.log(c); });
                 }
                 else {
-                    Toast.fire({ title: "Por favor complete los campos requeridos!", icon: "error" });
+                    Toast.fire({ title: "Please complete the required fields!", icon: "error" });
                 }
             }
         },

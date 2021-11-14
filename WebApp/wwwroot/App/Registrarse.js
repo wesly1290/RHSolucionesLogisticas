@@ -10,11 +10,11 @@ var Registrarse;
         methods: {
             Save: function () {
                 if (BValidateData(this.Formulario)) {
-                    Loading.fire("Registrando...");
+                    Loading.fire("Registering...");
                     App.AxiosProvider.UsuarioRegistrar(this.Entity).then(function (data) {
                         Loading.close();
                         if (data.CodeError == 0) {
-                            window.location.href = "Usuario/UsuariosGrid";
+                            window.location.href = "../Login";
                         }
                         else {
                             Toast.fire({ title: data.MsgError, icon: "error" });
@@ -22,7 +22,7 @@ var Registrarse;
                     });
                 }
                 else {
-                    Toast.fire({ title: "Por favor complete los campos requeridos!", icon: "error" });
+                    Toast.fire({ title: "Please complete the required fields!", icon: "error" });
                 }
             }
         },
@@ -30,6 +30,7 @@ var Registrarse;
             CreateValidator(this.Formulario);
         }
     });
+    $("#GridView").DataTable();
     Formulario.$mount("#AppRegistrar");
 })(Registrarse || (Registrarse = {}));
 //# sourceMappingURL=Registrarse.js.map

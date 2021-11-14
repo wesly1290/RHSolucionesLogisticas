@@ -1,0 +1,184 @@
+﻿@page
+@model WebApp.Pages.Factura.FacturaImprimirModel
+@{
+}
+
+@inject Microsoft.AspNetCore.Http.IHttpContextAccessor Context;
+@{
+
+    var FacturaGet = Context.HttpContext.Session.Get<Entity.FacturasEntity>("FacturaGet");
+}
+
+@{
+    Layout = null;
+}
+<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head runat="server">
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta charset="UTF-8">
+    <title>Factura</title>
+    <link href="~/Assets/FacturaCSS/css/bootstrap.css" rel="stylesheet" />
+    <style>
+        @@import url(http://fonts.googleapis.com/css?family=Bree+Serif);
+
+        body, h1, h2, h3, h4, h5, h6 {
+            font-family: 'Bree Serif', serif;
+        }
+    </style>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
+    <link href="//netdna.bootstrapcdn.com/bootstrap/3.1.0/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
+    <script src="//netdna.bootstrapcdn.com/bootstrap/3.1.0/js/bootstrap.min.js"></script>
+    <script src="//code.jquery.com/jquery-1.11.1.min.js"></script>
+
+    <script type="text/javascript">
+        function generatePDF() {
+
+            let body = document.body
+            let html = document.documentElement
+            let height = Math.max(body.scrollHeight, body.offsetHeight,
+                html.clientHeight, html.scrollHeight, html.offsetHeight)
+            let element = document.getElementById('container');
+            var idPedido = document.getElementById('lblProposal').innerText;
+            let heightCM = height / 10.35
+            html2pdf(element, {
+                margin: 1,
+                filename: 'Invoice' + idPedido + '.pdf',
+                html2canvas: { dpi: 192, letterRendering: true },
+                jsPDF: {
+                    orientation: 'portrait',
+                    unit: 'cm',
+                    format: [40, 35]
+                }
+            })
+
+
+        }
+    </script>
+</head>
+<body>
+
+    <a href="#" onclick="window.print();" id="lblPrint">Print</a>
+    <a href="#" onclick="generatePDF()" id="lblSave">Save</a>
+    <div class="container" id="container" name="container">
+
+        <div class="row">
+
+            <div class="col-xs-6">
+                <h1>
+                    <img width="100" src="~/Assets/template/img/RHSoluciones Logisticas.jpg">
+                </h1>
+            </div>
+            <div class="col-xs-6 text-right">
+                <div class="panel panel-default">
+                    <div class="panel-heading">
+                        <h4>
+                            Date:
+                            <p id="lblFecha">@FacturaGet.FechaPedido</p>
+                        </h4>
+                        <h4>
+                            Proposal number:
+                            <p  id="lblProposal">@FacturaGet.Pedido</p>
+                        </h4>
+                    </div>
+                    <div class="panel-body">
+                        <h4>
+                            Customer:
+                            <p  id="lblCustomer">@FacturaGet.NombreCompleto</p>
+                        </h4>
+                    </div>
+                </div>
+            </div>
+
+            <hr />
+
+
+
+
+            @*<div class="row">
+                    <div class="col-xs-12">
+                        <div class="panel panel-default">
+
+                            <div class="panel-body">
+                                <h4>
+                                    Proposal to:
+                                    <a  id="lblNombre">{Nombre}</a>
+                                </h4>
+                                <h4>
+                                    Organization:
+                                    <a  id="lblEmpresa">{Empresa}</a>
+                                </h4>
+                                <h4>
+                                    Phone:
+                                    <a  id="lblTelefono">{Phone}</a>
+                                </h4>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>*@
+
+            <pre><h3 style="text-align: center;">Detail</h3> </pre>
+            <table class="table table-bordered">
+                <tbody>
+                    <tr>
+                        <td colspan="4" style="text-align: right;">Type Service</td>
+                        <td style="text-align: right;"><p  id="lblSubtotal">@FacturaGet.TipoServicio</p></td>
+                    </tr>
+                    <tr>
+                        <td colspan="4" style="text-align: right;">Subtotal</td>
+                        <td style="text-align: right;"><p  id="lblSubtotal">@FacturaGet.Monto</p></td>
+                    </tr>
+                    <tr>
+                        <td colspan="4" style="text-align: right;">Taxes</td>
+                        <td style="text-align: right;"><p  id="lblImpuestos">@FacturaGet.Impuesto</p></td>
+                    </tr>
+                    <tr>
+                        <td colspan="4" style="text-align: right;">Total</td>
+                        <td style="text-align: right;"><p  id="lblTotal">@FacturaGet.Total</p></td>
+                    </tr>
+                    <tr>
+                        <td colspan="4" style="text-align: right;">Grand Total</td>
+                        <td style="text-align: right;">
+                            <p>
+                                <pre runat="server" id="lblGranTotal">@FacturaGet.Total</pre>
+                            </p>
+                        </td>
+                    </tr>
+
+                </tbody>
+            </table>
+            <div class="row">
+                <div class="col-xs-12">
+                    <div class="panel panel-default">
+
+                        <div class="panel-body">
+                            <h4>
+                                Notes:
+                            </h4>
+                            <h5 runat="server" id="lblNotas">
+                                @FacturaGet.Observaciones
+                            </h5>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+
+
+            @*<div class="row">
+                    <div class="col-xs-12">
+                        <div class="panel panel-info">
+                            <h4>
+                                Terms and conditions
+                            </h4>
+                            <h6 runat="server" id="lblTerminos">{Terms}</h6>
+                        </div>
+                    </div>
+                </div>*@
+
+        </div>
+    </div>
+</body>
+</html>

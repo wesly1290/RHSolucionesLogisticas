@@ -26,7 +26,8 @@ ELSE BEGIN
 	0 AS CodeError,
 	UsuariosId,
 	Usuario,
-	Nombre
+	Nombre,
+	RolesId
 
 	FROM Usuarios 
 		WHERE Usuario=@Usuario and Contrasena=@ContrasenaSHA1 

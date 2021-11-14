@@ -2,6 +2,12 @@
 
 namespace ClienteEdit {
 
+    interface ClienteEdit {
+        UsuariosId: number;
+        DescripcionMovimiento: string;
+    }
+
+    declare var SessionID: any;
 
     var Entity = $("#AppEdit").data("entity");
 
@@ -28,14 +34,30 @@ namespace ClienteEdit {
 
                 if (BValidateData(this.Formulario)) {
 
-                    Loading.fire("Guardando");
+                    Loading.fire("Saving...");
 
                     this.ClienteServicio(this.Entity).then(data => {
 
                         Loading.close();
 
                         if (data.CodeError == 0) {
-                            Toast.fire({ title: "Se guardo sastifactoriamente!", icon: "success" })
+
+                            var movimiento = "";
+
+                            if (Entity.ClientesId != null) {
+                                movimiento = "The customer " + Entity.ClientesId + " has been updated";
+                            } else {
+                                movimiento = "A new customer has been created";
+                            }
+
+                            const tableInstance: ClienteEdit = {
+                                UsuariosId: parseInt(SessionID),
+                                DescripcionMovimiento: movimiento
+                            };
+
+                            App.AxiosProvider.RegistrarBitacoraMov(tableInstance);
+
+                            Toast.fire({ title: "Successfully saved!", icon: "success" })
                                 .then(() => window.location.href = "Cliente/Grid")
                         } else {
                             Toast.fire({ title: data.MsgError, icon: "error" });
@@ -48,7 +70,7 @@ namespace ClienteEdit {
 
 
                 } else {
-                    Toast.fire({ title: "Por favor complete los campos requeridos!", icon: "error" });
+                    Toast.fire({ title: "Please complete the required fields!", icon: "error" });
                 }
 
             }

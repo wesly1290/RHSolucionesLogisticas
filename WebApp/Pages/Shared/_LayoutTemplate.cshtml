@@ -1,8 +1,9 @@
 ﻿@inject Microsoft.AspNetCore.Http.IHttpContextAccessor Context;
-@{ 
+@{
 
     var UsuarioSession = Context.HttpContext.Session.Get<Entity.UsuariosEntity>(IApp.UsuarioSession);
 
+    var PaginasRol = Context.HttpContext.Session.Get<Entity.PaginasRolEntity>("PaginasRol");
 }
 
 <!DOCTYPE html>
@@ -13,7 +14,9 @@
     <base href="/" />
     <title>@ViewData["Title"] - WebApp</title>
     @await Html.PartialAsync("_HeaderTemplate")
-
+<script>
+    var SessionID = '@UsuarioSession.UsuariosId';
+</script>
 </head>
 <body>
 
@@ -33,13 +36,14 @@
     <!-- Main wrapper - style you can find in pages.scss -->
     <!-- -------------------------------------------------------------- -->
     <div id="main-wrapper">
+        <input type="hidden" id="hdnSession" data-value="@UsuarioSession.UsuariosId" />
         <!-- -------------------------------------------------------------- -->
         <!-- Topbar header - style you can find in pages.scss -->
         <!-- -------------------------------------------------------------- -->
         <header class="topbar">
             <nav class="navbar top-navbar navbar-expand-md navbar-dark">
                 <div class="navbar-header">
-                    <!-- This is for the sidebar toggle which is visible on mobile only -->
+                    <!-- This is for the sidebar toggle which is  v-if on mobile only -->
                     <a class="nav-toggler waves-effect waves-light d-block d-md-none" href="javascript:void(0)">
                         <i class="ti-menu ti-close"></i>
                     </a>
@@ -69,7 +73,7 @@
                     <!-- End Logo -->
                     <!-- ============================================================== -->
                     <!-- ============================================================== -->
-                    <!-- Toggle which is visible on mobile only -->
+                    <!-- Toggle which is  v-if on mobile only -->
                     <!-- ============================================================== -->
                     <a class="topbartoggler d-block d-md-none waves-effect waves-light" href="javascript:void(0)"
                        data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent"
@@ -283,29 +287,28 @@
                                         <img src="~/Assets/template/img/profile.png" alt="user" class="rounded-circle" width="60" />
                                     </div>
                                     <div class="ms-2">
-                                        <h4 class="mb-0 text-white">Wesly Solano</h4>
-                                        <p class=" mb-0">wesly.dsr@gmail.com</p>
+                                        <h4 class="mb-0 text-white">@UsuarioSession?.Nombre</h4>
                                     </div>
                                 </div>
                                 <a class="dropdown-item" href="#">
                                     <i data-feather="user" class="feather-sm text-info me-1 ms-1"></i> My
                                     Profile
                                 </a>
-                                <a class="dropdown-item" href="#">
-                                    <i data-feather="credit-card" class="feather-sm text-info me-1 ms-1"></i>
-                                    My Balance
-                                </a>
-                                <a class="dropdown-item" href="#">
-                                    <i data-feather="mail" class="feather-sm text-success me-1 ms-1"></i>
-                                    Inbox
-                                </a>
+                                @*<a class="dropdown-item" href="#">
+                                        <i data-feather="credit-card" class="feather-sm text-info me-1 ms-1"></i>
+                                        My Balance
+                                    </a>*@
+                                @*<a class="dropdown-item" href="#">
+                                        <i data-feather="mail" class="feather-sm text-success me-1 ms-1"></i>
+                                        Inbox
+                                    </a>*@
                                 <div class="dropdown-divider"></div>
                                 <a class="dropdown-item" href="#">
                                     <i data-feather="settings" class="feather-sm text-warning me-1 ms-1"></i>
                                     Account Setting
                                 </a>
                                 <div class="dropdown-divider"></div>
-                                <a class="dropdown-item" asp-page="/Login" asp-page-handler="Logout" >
+                                <a class="dropdown-item" asp-page="/Login" asp-page-handler="Logout">
                                     <i data-feather="log-out"
                                        class="feather-sm text-danger me-1 ms-1"></i> Logout
                                 </a>
@@ -340,7 +343,8 @@
                     <!-- User profile text-->
                     <div class="profile-text pt-1 dropdown">
                         <a href="#" class="dropdown-toggle u-dropdown w-100 text-white d-block position-relative" id="dropdownMenuLink" data-bs-toggle="dropdown" aria-expanded="false">
-                        @UsuarioSession?.Nombre</a>
+                            @UsuarioSession?.Nombre
+                        </a>
                         <div class="dropdown-menu animated flipInY" aria-labelledby="dropdownMenuLink">
                             <a class="dropdown-item" href="#">
                                 <i data-feather="user" class="feather-sm text-info me-1 ms-1"></i> My
@@ -354,7 +358,8 @@
                                 Account Setting
                             </a>
                             <div class="dropdown-divider"></div>
-                            <a class="dropdown-item" href="authentication-login3.html">
+
+                            <a class="dropdown-item" asp-page="/Login" asp-page-handler="Logout">
                                 <i data-feather="log-out"
                                    class="feather-sm text-danger me-1 ms-1"></i> Logout
                             </a>
@@ -381,37 +386,46 @@
                                 <span class="hide-menu">Main Menu</span>
                             </a>
                             <ul aria-expanded="false" class="collapse  first-level">
-                                <li class="sidebar-item">
+                                <li class="sidebar-item" style="display:@(PaginasRol.Customer ? "block":"none")">
                                     <a asp-page="/Cliente/Grid" class="sidebar-link">
                                         <i class="mdi mdi-adjust"></i>
                                         <span class="hide-menu"> Customer </span>
                                     </a>
                                 </li>
-                                <li class="sidebar-item">
+                                <li class="sidebar-item" style="display:@(PaginasRol.Users ? "block":"none")">
                                     <a asp-page="/Usuario/UsuariosGrid" class="sidebar-link">
                                         <i class="mdi mdi-adjust"></i>
                                         <span class="hide-menu"> Users </span>
                                     </a>
                                 </li>
-                                <li class="sidebar-item">
+
+                                <li class="sidebar-item" style="display:@(PaginasRol.Invoice ? "block":"none")">
                                     <a asp-page="/Factura/FacturasGrid" class="sidebar-link">
                                         <i class="mdi mdi-adjust"></i>
                                         <span class="hide-menu"> Invoice </span>
                                     </a>
                                 </li>
-                                <li class="sidebar-item">
+
+                                <li class="sidebar-item" style="display:@(PaginasRol.RoleMaintenance ? "block":"none")">
+                                    <a asp-page="/Roles/RolesGrid" class="sidebar-link">
+                                        <i class="mdi mdi-adjust"></i>
+                                        <span class="hide-menu"> Role Maintenance </span>
+                                    </a>
+                                </li>
+
+                                <li class="sidebar-item" style="display:@(PaginasRol.Reports ? "block":"none")">
                                     <a asp-page="/Reporte/ReportesGrid" class="sidebar-link">
                                         <i class="mdi mdi-adjust"></i>
                                         <span class="hide-menu"> Reports </span>
                                     </a>
                                 </li>
-                                <li class="sidebar-item">
+                                <li class="sidebar-item" style="display:@(PaginasRol.UserLog ? "block":"none")">
                                     <a asp-page="/BitacoraUsuario/BitacorasGrid" class="sidebar-link">
                                         <i class="mdi mdi-adjust"></i>
                                         <span class="hide-menu"> User Log </span>
                                     </a>
                                 </li>
-                                <li class="sidebar-item">
+                                <li class="sidebar-item" style="display:@(PaginasRol.MovementLog ? "block":"none")">
                                     <a asp-page="/MovimientoBitacora/MovimientoBitacoraGrid" class="sidebar-link">
                                         <i class="mdi mdi-adjust"></i>
                                         <span class="hide-menu"> Movement Log </span>
@@ -429,10 +443,12 @@
             </div>
             <!-- End Sidebar scroll-->
             <!-- Bottom points-->
-            <div class="sidebar-footer text-center  justify-content-center">
 
+            <div class="sidebar-footer text-center  justify-content-center">
+                <a class="link" asp-page="/Login" asp-page-handler="Logout" title="Logout">
+                    <i class="mdi mdi-power"></i>
+                </a>
                 <!-- item-->
-                <a href="" class="link" data-bs-toggle="tooltip" data-bs-placement="top" title="Logout"><i class="mdi mdi-power"></i></a>
             </div>
             <!-- End Bottom points-->
         </aside>

@@ -19,6 +19,8 @@ namespace WebApiRest
             services.AddTransient<IClientesService, ClientesService>();
             services.AddTransient<IUsuariosService, UsuariosService>();
             services.AddTransient<IFacturasService, FacturaService>();
+            services.AddTransient<IRolesService, RolesService>();
+            services.AddTransient<IBitacorasIngresoService, BitacorasIngresoService>();
             return services;
         }
     }

@@ -7,7 +7,7 @@
 <div id="AppEdit" class="container" data-entity="@JsonSerializer.Serialize(Model.Entity)" v-cloak>
     <div class="card">
         <div class="card-header">
-            @(Model.id.HasValue ? "Actualizar":"Nuevo")
+            @(Model.id.HasValue ? "Update":"New")
         </div>
         <div class="card-body">
             <form id="FormEdit">
@@ -16,19 +16,19 @@
                 <input type="hidden" asp-for="Entity.ClientesId" v-model="Entity.ClientesId" />
 
                 <div class="form-group mb-3">
-                    <label for="Entity.NombreCompleto" class="form-label">Nombre Completo</label>
+                    <label for="Entity.NombreCompleto" class="form-label">Customer name</label>
                     <input type="text" class="form-control" asp-for="Entity.NombreCompleto" v-model="Entity.NombreCompleto" maxlength="250" required>
                 </div>
 
 
                 <div class="form-group mb-3">
-                    <label for="Entity.Direccion" class="form-label">Direccion</label>
+                    <label for="Entity.Direccion" class="form-label">Address</label>
                     <input type="text" class="form-control" asp-for="Entity.Direccion" v-model="Entity.Direccion" maxlength="250" required>
 
                 </div>
 
                 <div class="form-group mb-3">
-                    <label for="Entity.Telefono" class="form-label">Telefono</label>
+                    <label for="Entity.Telefono" class="form-label">Phone number</label>
 
                     <input type="text" class="form-control" asp-for="Entity.Telefono" v-model="Entity.Telefono" maxlength="250" required>
                 </div>
@@ -36,13 +36,13 @@
                 
                 <div class="form-group form-check form-switch">
                     <input class="form-check-input" type="checkbox" asp-for="Entity.Estado" v-model="Entity.Estado" value="true">
-                    <label class="form-check-label" for="Entity_Estado">Estado</label>
+                    <label class="form-check-label" for="Entity.Estado">Status</label>
                 </div>
 
                 <div class="row">
                     <div class="col-4">
                         <button type="button" @@click="Save" class="btn btn-outline-primary">
-                            @(Model.id.HasValue ? "Actualizar":"Agregar")
+                            @(Model.id.HasValue ? "Update":"Create")
                         </button>
                     </div>
                 </div>

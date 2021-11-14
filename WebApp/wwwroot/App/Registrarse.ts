@@ -17,14 +17,14 @@
 
                 if (BValidateData(this.Formulario)) {
 
-                    Loading.fire("Registrando...");
+                    Loading.fire("Registering...");
 
                     App.AxiosProvider.UsuarioRegistrar(this.Entity).then(data => {
 
                         Loading.close();
 
                         if (data.CodeError == 0) {
-                            window.location.href = "Usuario/UsuariosGrid"
+                            window.location.href = "../Login"
                         } else {
                             Toast.fire({ title: data.MsgError, icon: "error" });
 
@@ -33,7 +33,7 @@
 
                     });
                 } else {
-                    Toast.fire({ title: "Por favor complete los campos requeridos!", icon: "error" });
+                    Toast.fire({ title: "Please complete the required fields!", icon: "error" });
                 }
 
             }
@@ -48,6 +48,8 @@
         }
 
     });
+
+    $("#GridView").DataTable();
 
     Formulario.$mount("#AppRegistrar")
 

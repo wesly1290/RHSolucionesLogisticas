@@ -1,9 +1,9 @@
 ﻿CREATE PROCEDURE [dbo].[UsuariosActualizar]
-    @UsuarioId INT,
+    @UsuariosId INT,
 	@Usuario VARCHAR (250),
 	@Nombre VARCHAR (500) , 
 	@RolesId INT, 
-	@Contrasena VARBINARY (max),
+	@Contrasena VARCHAR(250),
 	@Estado BIT
 AS BEGIN
 SET NOCOUNT ON
@@ -12,18 +12,37 @@ SET NOCOUNT ON
 
 	BEGIN TRY
 	BEGIN
-		
-	UPDATE dbo.Usuarios SET
+
+		IF @Contrasena = NULL BEGIN
+
+			UPDATE dbo.Usuarios SET
 	      
-		  Usuario =@Usuario,
-		  Nombre=@Nombre,
-		  RolesId=@RolesId,
-		  Contrasena=@Contrasena,
-		  Estado=@Estado
+				  Usuario =@Usuario,
+				  Nombre=@Nombre,
+				  RolesId=@RolesId,
+				  Estado=@Estado
 
-	WHERE UsuariosId=@UsuarioId
+			WHERE UsuariosId=@UsuariosId
 
-	SELECT 0 AS CodeError, '' AS MsgError
+			SELECT 0 AS CodeError, '' AS MsgError
+
+		END
+		ELSE BEGIN 
+			DECLARE @ContrasenaSHA1 VARBINARY(MAX)=(SELECT HASHBYTES('SHA1',@Contrasena));
+
+			UPDATE dbo.Usuarios SET
+	      
+				  Usuario =@Usuario,
+				  Nombre=@Nombre,
+				  RolesId=@RolesId,
+				  Contrasena=@ContrasenaSHA1,
+				  Estado=@Estado
+
+			WHERE UsuariosId=@UsuariosId
+
+			SELECT 0 AS CodeError, '' AS MsgError
+		END	
+
 
 		END
 

@@ -10,7 +10,7 @@ var Login;
         methods: {
             Login: function () {
                 if (BValidateData(this.Formulario)) {
-                    Loading.fire("Ingresando...");
+                    Loading.fire("Loading...");
                     App.AxiosProvider.UsuarioLogin(this.Entity).then(function (data) {
                         Loading.close();
                         console.log(data);
@@ -23,7 +23,7 @@ var Login;
                     }).catch(function (c) { return console.log(c); });
                 }
                 else {
-                    Toast.fire({ title: "Por favor complete los campos requeridos!", icon: "error" });
+                    Toast.fire({ title: "Please complete the required fields!", icon: "error" });
                 }
             }
         },

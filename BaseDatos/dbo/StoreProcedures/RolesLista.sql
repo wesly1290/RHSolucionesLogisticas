@@ -1,4 +1,5 @@
 ﻿CREATE PROCEDURE [dbo].[RolesLista]
+	@RolesId INT= null
 AS
 	BEGIN
 	SET NOCOUNT ON
@@ -6,7 +7,10 @@ AS
 
 	SELECT
 	RolesId,
-	 NombreRol
+	 NombreRol,
+	 Descripcion,
+	 Estado
 	FROM Roles
+	WHERE  (@RolesId IS NULL OR RolesId=@RolesId)
 	
 	END

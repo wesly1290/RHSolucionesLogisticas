@@ -1,0 +1,95 @@
+﻿@page
+@model WebApp.Pages.Roles.RolesEditModel
+@{
+}
+
+<br />
+<div id="AppEdit" class="container" data-entity="@JsonSerializer.Serialize(Model.Entity)" v-cloak>
+    <div class="card">
+        <div class="card-header">
+            @(Model.id.HasValue ? "Update":"New")
+        </div>
+        <div class="card-body">
+            <form id="FormEdit">
+
+
+                <input type="hidden" asp-for="Entity.RolesId" v-model="Entity.RolesId" />
+
+
+                @*<div class="form-group mb-3">
+                        <label for="Entity.ClientesId" class="form-label">Cliente</label>
+
+                        <select asp-for="Entity.ClientesId" class="form-select" v-model="Entity.ClientesId"
+                                asp-items="@(new SelectList(Model.PaginasLista,"ClientesId","NombreCompleto"))"
+                                required>
+                            <option value=""></option>
+                        </select>
+                    </div>*@
+
+                <div class="form-group mb-3">
+                    <label for="Entity.NombreRol" class="form-label">Name</label>
+                    <input type="text" class="form-control" asp-for="Entity.NombreRol" v-model="Entity.NombreRol" maxlength="250">
+                </div>
+
+                <div class="form-group mb-3">
+                    <label for="Entity.Descripcion" class="form-label">Description</label>
+                    <input type="text" class="form-control" asp-for="Entity.Descripcion" v-model="Entity.Descripcion" maxlength="250">
+                </div>
+
+                @*<div class="form-group mb-3">
+                        <label for="Entity.Monto" class="form-label">Monto $</label>
+                        <input type="number" class="form-control" asp-for="Entity.Monto" v-model.number="Entity.Monto" required>
+                    </div>*@
+
+                @*<div class="form-group mb-3">
+                        <label for="Entity.Impuesto" class="form-label">Impuesto</label>
+                        <input type="number" class="form-control" asp-for="Entity.Impuesto" v-model.number="Entity.Impuesto" required>
+                    </div>*@
+
+
+                @*<div class="form-group mb-3">
+                        <label for="Entity.Observaciones" class="form-label">Observaciones</label>
+                        <input type="text" class="form-control" asp-for="Entity.Observaciones" v-model="Entity.Observaciones" maxlength="1000">
+                    </div>*@
+
+                <div class="form-group form-check form-switch">
+                    <input class="form-check-input" type="checkbox" asp-for="Entity.Estado" v-model="Entity.Estado">
+                    <label class="form-check-label" for="Entity.Estado">Status Active/Inactive</label>
+                </div>
+
+                <div class="col-md-6 col-sm-6 col-xs-6 form-check  rounded" style="max-height:400px; border: 1px solid #ddd;overflow-y: scroll;">
+                    <br />
+                    <h5 style="font-weight:600; text-align:center;">Select the rights</h5>
+                    <input type="checkbox" id="AllRight" name="todo" onclick="RolesEdit.CheckAll()">
+                    <label class="form-check-label" style="padding-bottom:2px;" for="materialUnchecked">All Rights</label>
+                    <div name="Rights" id="Rights" data-entity="@JsonSerializer.Serialize(Model.PaginasRol)" v-cloak>
+
+                        @foreach (var item in Model.PaginasLista)
+                        {
+                            <div>
+                                <input type="checkbox" id="todo" name="todo" value="@item.PaginasId">
+                                <label class="form-check-label" style="padding-bottom:2px" for="materialUnchecked">@item.NombrePagina</label>
+                            </div>
+                        }
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-4">
+                        <button type="button" @@click="Save" class="btn btn-outline-primary">
+                            @(Model.id.HasValue ? "Update":"Create")
+                        </button>
+                    </div>
+                </div>
+
+            </form>
+
+
+        </div>
+    </div>
+</div>
+
+@section Scripts{
+
+    <script defer src="~/App/Roles/RolesEdit.js"></script>
+}

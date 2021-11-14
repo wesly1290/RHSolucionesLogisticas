@@ -63,7 +63,8 @@ namespace WBL
                     entity.Usuario,
                     entity.Nombre,
                     entity.RolesId,
-                    entity.Contrasena
+                    entity.Contrasena,
+                    entity.Estado
                 });
 
                 return await result;
@@ -146,7 +147,7 @@ namespace WBL
                     entity.UsuariosId,
                     entity.Usuario,
                     entity.Nombre,
-                    entity.Rol,
+                    entity.RolesId,
                     entity.Contrasena,
                     entity.Estado,
 

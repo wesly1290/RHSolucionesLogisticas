@@ -12,6 +12,10 @@
     <Content Remove="wwwroot\App\Cliente\Grid.ts" />
     <Content Remove="wwwroot\App\Login.ts" />
     <Content Remove="wwwroot\App\Registrarse.ts" />
+    <Content Remove="wwwroot\App\Roles\RolesEdit.ts" />
+    <Content Remove="wwwroot\App\Roles\RolesGrid.ts" />
+    <Content Remove="wwwroot\App\Usuarios\UsuariosEdit.ts" />
+    <Content Remove="wwwroot\App\Usuarios\UsuariosGrid.ts" />
     <Content Remove="wwwroot\Assets\Plugin\axios\AxiosConfig.ts" />
   </ItemGroup>
 
@@ -34,11 +38,16 @@
     <TypeScriptCompile Include="wwwroot\App\Cliente\Grid.ts" />
     <TypeScriptCompile Include="wwwroot\App\Login.ts" />
     <TypeScriptCompile Include="wwwroot\App\Registrarse.ts" />
+    <TypeScriptCompile Include="wwwroot\App\Roles\RolesEdit.ts" />
+    <TypeScriptCompile Include="wwwroot\App\Roles\RolesGrid.ts" />
+    <TypeScriptCompile Include="wwwroot\App\Usuarios\UsuariosEdit.ts" />
+    <TypeScriptCompile Include="wwwroot\App\Usuarios\UsuariosGrid.ts" />
     <TypeScriptCompile Include="wwwroot\Assets\Plugin\axios\AxiosConfig.ts" />
   </ItemGroup>
 
   <ItemGroup>
     <Folder Include="Rotativa\" />
+    <Folder Include="wwwroot\Assets\FacturaCSS\" />
   </ItemGroup>
 
 </Project>

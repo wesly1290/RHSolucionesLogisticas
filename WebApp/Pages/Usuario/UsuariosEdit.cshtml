@@ -1,0 +1,67 @@
+﻿@page
+@model WebApp.Pages.Usuario.UsuariosEditModel
+@{
+}
+<br />
+<div id="AppEdit" class="container" data-entity="@JsonSerializer.Serialize(Model.Entity)" v-cloak>
+    <div class="card">
+        <div class="card-header">
+            @(Model.id.HasValue ? "Update":"New")
+        </div>
+        <div class="card-body">
+            <form id="FormEdit">
+
+
+                <input type="hidden" asp-for="Entity.UsuariosId" v-model="Entity.UsuariosId" />
+                <div class="form-group mb-3">
+                    <label for="Entity.Usuario" class="form-label">User</label>
+                    <input type="text" class="form-control" asp-for="Entity.Usuario" v-model="Entity.Usuario" maxlength="250" required>
+                </div>
+
+                <div class="form-group mb-3">
+                    <label for="Entity.Nombre" class="form-label">Name</label>
+                    <input type="text" class="form-control" asp-for="Entity.Nombre" v-model="Entity.Nombre" maxlength="250" required>
+                </div>
+
+                <div class="form-group mb-3">
+                    <label for="Entity.Contrasena" class="form-label">Password</label>
+                    <input type="password" class="form-control" asp-for="Entity.Contrasena" v-model="Entity.Contrasena" maxlength="250" required="@(!Model.id.HasValue)">
+                </div>
+
+
+
+                <div class="form-group form-check form-switch">
+                    <input class="form-check-input" type="checkbox" asp-for="Entity.Estado" v-model="Entity.Estado">
+                    <label class="form-check-label" for="Entity.Estado">Status Active/Inactive</label>
+                </div>
+
+                <div class="form-group mb-3">
+                    <label for="Entity.RolesId" class="form-label">Role</label>
+                    <select name="Rights" id="Rights" asp-for="Entity.RolesId" class="form-select" v-model="Entity.RolesId" data-entity="@JsonSerializer.Serialize(Model.RolesEntity)" v-cloak>
+
+                        @foreach (var item in Model.RolesEntity)
+                        {
+                            <option selected="@(Model.Entity.RolesId==item.RolesId)" value="@item.RolesId">@item.NombreRol</option>
+                        }
+                    </select>
+                </div>
+
+                <div class="row">
+                    <div class="col-4">
+                        <button type="button" @@click="Save" class="btn btn-outline-primary">
+                            @(Model.id.HasValue ? "Update":"Create")
+                        </button>
+                    </div>
+                </div>
+
+            </form>
+
+
+        </div>
+    </div>
+</div>
+
+@section Scripts{
+
+    <script defer src="~/App/Usuarios/UsuariosEdit.js"></script>
+}

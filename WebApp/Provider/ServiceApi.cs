@@ -78,6 +78,7 @@ namespace WebApp
             return result;
         }
 
+
         #endregion
 
 
@@ -105,7 +106,7 @@ namespace WebApp
         #region Roles
         public async Task<IEnumerable<RolesEntity>> RolesGetLista()
         {
-            var result = await client.ServicioGetAsync<IEnumerable<RolesEntity>>("api/Roles/Lista");
+            var result = await client.ServicioGetAsync<IEnumerable<RolesEntity>>("api/Roles/");
 
             return result;
 
@@ -117,7 +118,53 @@ namespace WebApp
             if (result.CodeError is not 0) throw new Exception(result.MsgError);
 
             return result;
-            #endregion
+
         }
+
+        public async Task<IEnumerable<PaginasEntity>> GetPaginas()
+        {
+            var result = await client.ServicioGetAsync<IEnumerable<PaginasEntity>>("api/Roles/Paginas");
+
+            return result;
+
+        }
+
+        public async Task<IEnumerable<PaginasEntity>> GetPaginasRol(int id, int estado)
+        {
+            var result = await client.ServicioGetAsync<IEnumerable<PaginasEntity>>("/api/Roles/PaginasRol/?id=" + id + "&Estado=" + estado);
+
+            return result;
+
+        }
+
+        #endregion
+
+
+        #region Bitacora
+        public async Task<IEnumerable<BitacorasIngresoEntity>> BitacoraIngresoGet()
+        {
+            var result = await client.ServicioGetAsync<IEnumerable<BitacorasIngresoEntity>>("api/BitacorasIngreso/");
+
+            return result;
+
+        }
+
+        public async Task<IEnumerable<BitacorasMovimientoEntity>> GetBitacoraMov()
+        {
+            var result = await client.ServicioGetAsync<IEnumerable<BitacorasMovimientoEntity>>("api/BitacorasIngreso/GetBitacoraMov/");
+
+            return result;
+
+        }
+
+        public async Task<BitacorasIngresoEntity> RegistraBitacoraLogin(BitacorasIngresoEntity entity)
+        {
+
+            var result = await client.ServicioPostAsync<BitacorasIngresoEntity>("api/BitacorasIngreso/RegistrarBitacora", entity);
+
+            return result;
+        }
+
+        #endregion
     }
 }

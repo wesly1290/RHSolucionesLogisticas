@@ -17,7 +17,7 @@
 
                 if (BValidateData(this.Formulario)) {
 
-                    Loading.fire("Ingresando...");
+                    Loading.fire("Loading...");
 
                     App.AxiosProvider.UsuarioLogin(this.Entity).then(data => {
 
@@ -33,7 +33,7 @@
 
                     }).catch(c => console.log(c));
                 } else {
-                    Toast.fire({ title: "Por favor complete los campos requeridos!", icon: "error" });
+                    Toast.fire({ title: "Please complete the required fields!", icon: "error" });
                 }
 
             }

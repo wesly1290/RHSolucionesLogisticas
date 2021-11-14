@@ -83,5 +83,22 @@
     <Build Include="dbo\StoreProcedures\UsuariosActualizar.sql" />
     <Build Include="dbo\StoreProcedures\UsuariosEliminar.sql" />
     <Build Include="dbo\StoreProcedures\RolesLista.sql" />
+    <Build Include="dbo\Tables\Paginas.sql" />
+    <Build Include="dbo\StoreProcedures\RolesInsertar.sql" />
+    <Build Include="dbo\StoreProcedures\RolesActualizar.sql" />
+    <Build Include="dbo\StoreProcedures\RolesEliminar.sql" />
+    <Build Include="dbo\StoreProcedures\PaginasObtener.sql" />
+    <Build Include="dbo\StoreProcedures\PaginasObtenerRol.sql" />
+    <Build Include="dbo\StoreProcedures\PaginasPermisoRegistrar.sql" />
+    <Build Include="dbo\StoreProcedures\BitacoraLogInsertar.sql" />
+    <Build Include="dbo\StoreProcedures\BitacoraObtener.sql" />
+    <Build Include="dbo\StoreProcedures\BitacoraMovInsertar.sql" />
+    <Build Include="dbo\StoreProcedures\BitacoraMovObtener.sql" />
+  </ItemGroup>
+  <ItemGroup>
+    <RefactorLog Include="BaseDatos.refactorlog" />
+  </ItemGroup>
+  <ItemGroup>
+    <PostDeploy Include="dbo\Paginas.PostDeployment1.sql" />
   </ItemGroup>
 </Project>

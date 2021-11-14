@@ -16,6 +16,7 @@ namespace Entity
         public string Pedido { get; set; }
         public string TipoServicio { get; set; }
         public DateTime FechaPedido { get; set; } = DateTime.Now;
+        public DateTime FechaFactura { get; set; } = DateTime.Now;
         public decimal Monto { get; set; }
         public decimal Impuesto { get; set; }
         public decimal Total { get; set; }
@@ -23,6 +24,7 @@ namespace Entity
 
 
         public int? ClientesId { get; set; }
+        public string NombreCompleto { get; set; }
         public virtual ClientesEntity Cliente { get; set; }
 
 

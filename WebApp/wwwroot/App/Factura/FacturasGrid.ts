@@ -1,7 +1,13 @@
-﻿namespace FacturaGrid {
+﻿namespace FacturasGrid {
+    interface FacturaEdit {
+        UsuariosId: number;
+        DescripcionMovimiento: string;
+    }
+
+    declare var SessionID: any;
 
     export function OnClickEliminar(id) {
-        ComfirmAlert("Desea eliminar el registro? ", "Eliminar", "warning", "#3085d6", "#d33")
+        ComfirmAlert("You want to delete the record? ", "Delete", "warning", "#3085d6", "#d33")
             .then(result => {
                 if (result.isConfirmed) {
                     //animacion
@@ -12,7 +18,16 @@
                         Loading.close();
 
                         if (data.CodeError == 0) {
-                            Toast.fire({ title: "Se elimino correctamente!", icon: "success" }).then(() => window.location.href = "Factura/FacturasGrid");
+                            var movimiento = "The invoice " + id + " has been deleted";
+
+                            const tableInstance: FacturaEdit = {
+                                UsuariosId: parseInt(SessionID),
+                                DescripcionMovimiento: movimiento
+                            };
+
+                            App.AxiosProvider.RegistrarBitacoraMov(tableInstance);
+
+                            Toast.fire({ title: "Successfully deleted!", icon: "success" }).then(() => window.location.href = "Factura/FacturasGrid");
                         } else {
                             Toast.fire({ title: data.MsgError, icon: "error" })
                         }

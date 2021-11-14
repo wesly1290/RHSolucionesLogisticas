@@ -6,7 +6,7 @@
 <div id="AppEdit" class="container" data-entity="@JsonSerializer.Serialize(Model.Entity)" v-cloak>
     <div class="card">
         <div class="card-header">
-            @(Model.id.HasValue ? "Actualizar":"Nuevo")
+            @(Model.id.HasValue ? "Update":"New")
         </div>
         <div class="card-body">
             <form id="FormEdit">
@@ -16,7 +16,7 @@
 
 
                 <div class="form-group mb-3">
-                    <label for="Entity.ClientesId" class="form-label">Cliente</label>
+                    <label for="Entity.ClientesId" class="form-label">Customer name</label>
 
                     <select asp-for="Entity.ClientesId" class="form-select" v-model="Entity.ClientesId"
                             asp-items="@(new SelectList(Model.ClienteLista,"ClientesId","NombreCompleto"))"
@@ -26,31 +26,31 @@
                 </div>
 
                 <div class="form-group mb-3">
-                    <label for="Entity.pedido" class="form-label">Pedido</label>
+                    <label for="Entity.pedido" class="form-label">Order</label>
                     <input type="text" class="form-control" asp-for="Entity.Pedido" v-model="Entity.Pedido" maxlength="1000">
                 </div>
 
                 <div class="form-group mb-3">
-                    <label for="Entity.TipoServicio" class="form-label">Exportación o Importación</label>
+                    <label for="Entity.TipoServicio" class="form-label">Export or Import</label>
                     <input type="text" class="form-control" asp-for="Entity.TipoServicio" v-model="Entity.TipoServicio" maxlength="250">
                 </div>
 
                 <div class="form-group mb-3">
-                    <label for="Entity.FechaFactura" class="form-label">Fecha Factura</label>
+                    <label for="Entity.FechaPedido" class="form-label">Date invoice</label>
 
-                    <b-form-datepicker id="FechaFactura" name="FechaFactura" class="form-control"
-                                       v-model="Entity.FechaFactura" required>
+                    <b-form-datepicker id="FechaFactura" name="FechaFactura"  class="form-control"
+                                       v-model="Entity.FechaPedido" asp-for="Entity.FechaPedido" required>
 
                     </b-form-datepicker>
                 </div>
 
                 <div class="form-group mb-3">
-                    <label for="Entity.Monto" class="form-label">Monto $</label>
+                    <label for="Entity.Monto" class="form-label">Amount $</label>
                     <input type="number" class="form-control" asp-for="Entity.Monto" v-model.number="Entity.Monto" required>
                 </div>
 
                 <div class="form-group mb-3">
-                    <label for="Entity.Impuesto" class="form-label">Impuesto</label>
+                    <label for="Entity.Impuesto" class="form-label">Tax</label>
                     <input type="number" class="form-control" asp-for="Entity.Impuesto" v-model.number="Entity.Impuesto" required>
                 </div>
 
@@ -67,19 +67,19 @@
                 </div>
 
                 <div class="form-group mb-3">
-                    <label for="Entity.Observaciones" class="form-label">Observaciones</label>
+                    <label for="Entity.Observaciones" class="form-label">Notes</label>
                     <input type="text" class="form-control" asp-for="Entity.Observaciones" v-model="Entity.Observaciones" maxlength="1000">
                 </div>
 
                 <div class="form-group form-check form-switch">
                     <input class="form-check-input" type="checkbox" asp-for="Entity.Estado" v-model="Entity.Estado" value="true">
-                    <label class="form-check-label" for="Entity_Estado">Estado Activo/Inactivo</label>
+                    <label class="form-check-label" for="Entity.Estado">Status Active/Inactive</label>
                 </div>
 
                 <div class="row">
                     <div class="col-4">
                         <button type="button" @@click="Save" class="btn btn-outline-primary">
-                            @(Model.id.HasValue ? "Actualizar":"Agregar")
+                            @(Model.id.HasValue ? "Update":"Create")
                         </button>
                     </div>
                 </div>

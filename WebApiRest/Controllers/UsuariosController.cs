@@ -49,20 +49,36 @@ namespace WebApiRest.Controllers
             }
         }
 
+        [HttpDelete("Eliminar/{id}")]
+        public async Task<DBEntity> DeleteById(int id)
+        {
+            try
+            {
+                return await usuariosService.Delete(new UsuariosEntity { UsuariosId = id });
+            }
+            catch (Exception ex)
+            {
+
+                return new DBEntity { CodeError = ex.HResult, MsgError = ex.Message };
+            }
+        }
+
         [HttpPost("Login")]
         public async Task<UsuariosEntity> Login(UsuariosEntity entity)
         {
 
             try
             {
-                return await usuariosService.Login(entity);
+                UsuariosEntity usuariosEntity = new UsuariosEntity();
+                usuariosEntity = await usuariosService.Login(entity);
+                return usuariosEntity;
             }
             catch (Exception ex)
             {
 
-                return new UsuariosEntity() { CodeError=ex.HResult, MsgError=ex.Message };
+                return new UsuariosEntity() { CodeError = ex.HResult, MsgError = ex.Message };
             }
-        
+
         }
 
 
@@ -80,6 +96,20 @@ namespace WebApiRest.Controllers
                 return new UsuariosEntity() { CodeError = ex.HResult, MsgError = ex.Message };
             }
 
+        }
+
+        [HttpPut("Actualizar")]
+        public async Task<DBEntity> Update(UsuariosEntity entity)
+        {
+            try
+            {
+                return await usuariosService.Update(entity);
+            }
+            catch (Exception ex)
+            {
+
+                return new DBEntity { CodeError = ex.HResult, MsgError = ex.Message };
+            }
         }
     }
 }

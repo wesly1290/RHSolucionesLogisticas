@@ -13,7 +13,7 @@ var FacturaEdit;
                 return total;
             },
             FacturaServicio: function (entity) {
-                if (entity.IdAFactura == null) {
+                if (entity.IdFactura == null) {
                     return App.AxiosProvider.FacturaGuardar(entity);
                 }
                 else {
@@ -22,11 +22,23 @@ var FacturaEdit;
             },
             Save: function () {
                 if (BValidateData(this.Formulario)) {
-                    Loading.fire("Guardando");
+                    Loading.fire("Saving");
                     this.FacturaServicio(this.Entity).then(function (data) {
                         Loading.close();
                         if (data.CodeError == 0) {
-                            Toast.fire({ title: "Se guardo sastifactoriamente!", icon: "success" })
+                            var movimiento = "";
+                            if (Entity.IdFactura != null) {
+                                movimiento = "The invoice " + Entity.IdFactura + " has been updated";
+                            }
+                            else {
+                                movimiento = "A new invoice has been created";
+                            }
+                            var tableInstance = {
+                                UsuariosId: parseInt(SessionID),
+                                DescripcionMovimiento: movimiento
+                            };
+                            App.AxiosProvider.RegistrarBitacoraMov(tableInstance);
+                            Toast.fire({ title: "Successfully saved!", icon: "success" })
                                 .then(function () { return window.location.href = "Factura/FacturasGrid"; });
                         }
                         else {
@@ -35,7 +47,7 @@ var FacturaEdit;
                     }).catch(function (c) { return console.log(c); });
                 }
                 else {
-                    Toast.fire({ title: "Por favor complete los campos requeridos!", icon: "error" });
+                    Toast.fire({ title: "Please complete the required fields!", icon: "error" });
                 }
             }
         },
