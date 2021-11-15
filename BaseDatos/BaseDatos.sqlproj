@@ -100,5 +100,6 @@
   </ItemGroup>
   <ItemGroup>
     <PostDeploy Include="dbo\Paginas.PostDeployment1.sql" />
+    <None Include="dbo\Roles.PostDeployment1.sql" />
   </ItemGroup>
 </Project>
