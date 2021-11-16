@@ -4,6 +4,8 @@
     var UsuarioSession = Context.HttpContext.Session.Get<Entity.UsuariosEntity>(IApp.UsuarioSession);
 
     var PaginasRol = Context.HttpContext.Session.Get<Entity.PaginasRolEntity>("PaginasRol");
+
+
 }
 
 <!DOCTYPE html>
@@ -14,9 +16,9 @@
     <base href="/" />
     <title>@ViewData["Title"] - WebApp</title>
     @await Html.PartialAsync("_HeaderTemplate")
-<script>
+    <script>
     var SessionID = '@UsuarioSession.UsuariosId';
-</script>
+    </script>
 </head>
 <body>
 
@@ -432,19 +434,25 @@
                                     </a>
                                 </li>
 
-
                             </ul>
                         </li>
-
+                        <li class="sidebar-item">
+                            <a asp-page="/Manual/UserManual" asp-page-handler="/Manual/UserManual" class="sidebar-link">
+                                <i class="mdi mdi-adjust"></i>
+                                <span class="hide-menu"> User Manual </span>
+                            </a>
+                        </li>
 
                     </ul>
                 </nav>
                 <!-- End Sidebar navigation -->
             </div>
             <!-- End Sidebar scroll-->
-            <!-- Bottom points-->
 
             <div class="sidebar-footer text-center  justify-content-center">
+                <a class="link" asp-page="/About" asp-page-handler="About" title="About">
+                    <i class="mdi mdi-information"></i>
+                </a>
                 <a class="link" asp-page="/Login" asp-page-handler="Logout" title="Logout">
                     <i class="mdi mdi-power"></i>
                 </a>

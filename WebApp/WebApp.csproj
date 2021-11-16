@@ -16,6 +16,7 @@
     <Content Remove="wwwroot\App\Roles\RolesGrid.ts" />
     <Content Remove="wwwroot\App\Usuarios\UsuariosEdit.ts" />
     <Content Remove="wwwroot\App\Usuarios\UsuariosGrid.ts" />
+    <Content Remove="wwwroot\Assets\Manual\UserManual.pdf" />
     <Content Remove="wwwroot\Assets\Plugin\axios\AxiosConfig.ts" />
   </ItemGroup>
 
@@ -48,6 +49,18 @@
   <ItemGroup>
     <Folder Include="Rotativa\" />
     <Folder Include="wwwroot\Assets\FacturaCSS\" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Include="wwwroot\Assets\Manual\UserManual.pdf">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Update="Pages\Manual\UserManual.pdf">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
   </ItemGroup>
 
 </Project>
